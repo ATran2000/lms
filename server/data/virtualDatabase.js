@@ -27,7 +27,7 @@ var aStudent = {
             "professorName": "Delta",
             "header": "Chapter 2 Discussion Board Post Assigned",
             "category": "Discussion",
-            "dueDate": "2022-11-19",
+            "dueDate": "2022-12-01",
             "markAsRead": "Unread",
             "timestamp": "2022-11-01 01:00:00.000"
         },
@@ -36,7 +36,7 @@ var aStudent = {
             "professorName": "Epsilon",
             "header": "Chapter 11 Reading Passed Out",
             "category": "Reading",
-            "dueDate": "2022-12-01",
+            "dueDate": "2022-11-19",
             "markAsRead": "Unread",
             "timestamp": "2022-11-30 01:00:00.000"
         }
