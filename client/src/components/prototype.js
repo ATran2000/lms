@@ -34,7 +34,7 @@ export default function Prototype() {
     getUniqueNotifications().then(uniqueNotifications => {
       console.log(uniqueNotifications);
     });
-  })
+  }, [])
 
   return (
     <>

@@ -34,3 +34,18 @@ app.post('/api', async (request, response) => {
 
   console.log("Returned data object!: ", data);
 });
+
+app.post('/api2', async (request, response) => {
+  console.log('I got a request to test!');
+  console.log(request.body);
+  // send request to virtual database, and get constructed object back
+  const data = await virtualDatabase.setData(request.body);
+
+  // return data
+  response.json({
+    status: 'success',
+    message: data,
+  });
+
+  console.log("Returned data object!: ", data);
+});

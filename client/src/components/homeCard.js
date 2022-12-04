@@ -7,8 +7,8 @@ function homeCardHeader(props) {
       <div className='flex border-b bg-[#f8f8f8] justify-left font-semibold p-1 px-3 font-serif w-full'>
         <p>{props.name}</p>
       </div>
-      <div className='flex justify-left p-3 w-full '>
-        {props.body}
+      <div className='flex justify-left p-3 w-full'>
+        {props.children}
       </div>
     </div>
 

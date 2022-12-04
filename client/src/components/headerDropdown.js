@@ -8,7 +8,27 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Example() {
+export default function Example({ profEnabled }) {
+  var profMode = ""
+  if (profEnabled){
+    profMode = (
+      <Menu.Item>
+        {({ active }) => (
+          <Link to='/professor'>
+            <div className={classNames(
+              active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+              'block px-4 py-2 text-sm'
+            )}>
+              Notification Pushing
+            </div>
+          </Link>
+        )}
+      </Menu.Item>
+    )
+  }
+  
+
+
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
@@ -47,18 +67,7 @@ export default function Example() {
                 </Link>
               )}
             </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <Link to='/about'>
-                  <div className={classNames(
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-sm'
-                  )}>
-                    About Us
-                  </div>
-                </Link>
-              )}
-            </Menu.Item>
+
             <Menu.Item>
               {({ active }) => (
                 <Link to='/prototype'>
@@ -71,6 +80,22 @@ export default function Example() {
                 </Link>
               )}
             </Menu.Item>
+
+            {profMode}
+
+            <Menu.Item>
+              {({ active }) => (
+                <Link to='/about'>
+                  <div className={classNames(
+                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                    'block px-4 py-2 text-sm'
+                  )}>
+                    About Us
+                  </div>
+                </Link>
+              )}
+            </Menu.Item>
+
           </div>
         </Menu.Items>
       </Transition>
