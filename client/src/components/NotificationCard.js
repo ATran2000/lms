@@ -20,12 +20,73 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
+
 function NotificationCard({ name, _class, type, due, isRead, announcementMsg }) {
   const [_isRead, setIsRead] = useState(isRead);
 
   function markAsRead() {
     setIsRead("Read");
+
+    var _newN = {
+      className: _class,
+      professorName: "Beta",
+      header: name,
+      category: type,
+      dueDate: due,
+      markAsRead: "Read",
+      timestamp: "2022-11-01 01:00:00.000",
+      announcement: announcementMsg
+    };
+    console.log(_newN)
+    updateNotifications(_newN).then((confMsg) => {
+      console.log("confMSG")
+      console.log(confMsg)
+    })
+
   }
+
+  async function updateNotifications(newData) {
+    const dataSlug = {
+      requestType: "updateNotification",
+      dataGuy: newData,
+      // requestType is the client's request (right now, it is uniqueNotifications which happens when going to home page to notification page)
+      // i think could later be replaced by other client's requests such as sorts and filters
+    };
+
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(dataSlug),
+    };
+
+    const response = await fetch("http://localhost:8080/api2", options);
+    const body = await response.json();
+    var uniqueNotifications = body.message;
+    console.log("Got called");
+    return uniqueNotifications;
+  }
+
+  // function sendData() {
+  //   if (errMsgs.length === 0) {
+  //     var _newN = {
+  //       className: _class,
+  //       professorName: "Beta",
+  //       header: name,
+  //       category: categoryRef.current.value,
+  //       dueDate: due,
+  //       markAsRead: _isRead,
+  //       timestamp: "2022-11-01 01:00:00.000",
+  //     };
+  //     console.log(_newN)
+  //     // changeNewN(_newN);
+  //     btnClick(_newN).then((confMsg) => {
+  //       console.log(confMsg);
+  //     });
+
+  //   }
+  // }
 
   return (
     <div className="w-[100%] bg-white p-10 border-2 rounded-lg lg:flex lg:items-center lg:justify-between mb-3  ">
@@ -54,7 +115,7 @@ function NotificationCard({ name, _class, type, due, isRead, announcementMsg }) 
         </div>
         <div className="text-gray-600 sm:truncate sm:text-sm sm:tracking-tight pt-3">
           {announcementMsg}
-          </div>
+        </div>
       </div>
       <div className="mt-5 flex lg:mt-0 lg:ml-4 ">
         {
