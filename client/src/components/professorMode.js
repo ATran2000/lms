@@ -4,6 +4,8 @@ import NotificationFrom from "./NotificationFrom";
 
 function ProfessorMode() {
   // const [newNotification, setnewNotification] = useState();
+  const [errMsg, setErrMsg] = useState([]);
+  const [errStyle, setErrStyle] = useState();
   async function sendNotifications(newData) {
     const dataSlug = {
       requestType: "sendNotification",
@@ -26,13 +28,40 @@ function ProfessorMode() {
     console.log("Got called");
     return uniqueNotifications;
   }
-
+  var errCss = {
+    display: "none"
+  }
+  if(errMsg?.length === 0){
+    errCss = {
+      display: "none"
+    }
+  } else {
+    if (errMsg[0] === "Sucess!") {
+      errCss = {
+        display: "grid",
+        backgroundColor: "rgb(190 242 100)"
+      }
+    } else {
+      errCss = {
+        display: "grid",
+        backgroundColor: "rgb(252 165 165)"
+      }
+    }
+  }
+  
+  
   return (
-    <div className="w-full h-full flex">
-      <div className="flex w-5/6 justify-center m-10">
+    <div className="w-full justify-center h-full flex grid grid-cols-1">
+      <div className="flex justify-center m-10">
         <NotificationFrom
           btnClick={sendNotifications}
+          errMsgState={setErrMsg}
         ></NotificationFrom>
+      </div>
+      <div className="grid grid-cols-1 flex justify-self-center m-5 p-5 shadow sm:rounded-md w-auto" style={errCss}>
+        {errMsg?.map((e) => (
+          <p className="justify-self-center">{e}</p>
+        ))}
       </div>
     </div>
   );

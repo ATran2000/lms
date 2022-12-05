@@ -9,8 +9,9 @@ var aStudent = {
             "header": "Chapter 5 Quiz Graded",
             "category": "Quiz",
             "dueDate": "N/A",
-            "markAsRead": "Unread",
-            "timestamp": "2022-11-01 01:00:00.000"
+            "markAsRead": "Read",
+            "timestamp": "2022-11-01 01:00:00.000",
+            "announcement":"Please check out the grade you got and see me if you need to!"
 
         },
         {
@@ -28,7 +29,7 @@ var aStudent = {
             "header": "Chapter 2 Discussion Board Post Assigned",
             "category": "Discussion",
             "dueDate": "2022-12-01",
-            "markAsRead": "Unread",
+            "markAsRead": "Read",
             "timestamp": "2022-11-01 01:00:00.000"
         },
         {
@@ -64,7 +65,6 @@ async function getDataVirtualDatabase(dataSlug) {
 }
 async function setDataVirtualDatabase(dataSlug) {
     // if statements to determine request type
-    console.log("GOT HERE");
     if (dataSlug.requestType == "sendNotification") { // this request will return a list of all notifications for the student
         return await newNotification(dataSlug.dataGuy);
     }

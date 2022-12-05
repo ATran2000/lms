@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import Notification from "./notification";
+import NotificationCard from "./NotificationCard";
 import ClassDropdown from "./classDropdown";
 import CategoryDropDown from "./categoryDropDown";
 
@@ -16,6 +17,7 @@ import {
   MagnifyingGlassCircleIcon,
   MagnifyingGlassIcon,
   TagIcon,
+  XCircleIcon,
 } from "@heroicons/react/20/solid";
 
 export default function Prototype() {
@@ -83,54 +85,26 @@ export default function Prototype() {
         FilteredClasses.push(notif[i]);
       }
     }
+    console.log(FilteredClasses)
     setCurNotifs(FilteredClasses);
   }
-
-  //WIP
   function dateFilter() {
-    const date = new Date();
-    // date.getDate()
-    var date1 = Date.parse("2022-11-16");
-    var date2 = Date.parse("2022-11-17");
-    // console.log(date2)
-    // console.log(Date.parse("0"))
-    if (date1 > date2) {
-      // console.log("2022-11-19 > 2022-11-17");
-      // console.log(date1 + " > " + date2);
-    }
-    var dateFilter = [];
-    for (var i = 0; i < notif.length; i++) {
-      dateFilter.push(notif[i]);
-    }
-    // console.log(dateFilter)
-
-    for (var i = 0; i < dateFilter.length; i++) {
-      // console.log(dateFilter)
-      for (var j = 0; j < dateFilter.length - 1; j++) {
-        // console.log(dateFilter[j + 1].dueDate + " < " + dateFilter[j].dueDate)
-        // console.log(Date.parse(dateFilter[j + 1].dueDate) + " < " + Date.parse(dateFilter[j].dueDate))
-        var d1 = Date.parse(dateFilter[j + 1].dueDate);
-        var d2 = Date.parse(dateFilter[j].dueDate);
-
-        if (d1 == NaN) {
-          d1 = 946702800000;
+     const sorted = [...notif].sort(function(a,b){
+        var _a = a
+        var _b = b
+        if(_a.dueDate === ""){
+          _a.dueDate = "0"
         }
-        if (d2 == NaN) {
-          d2 = 946702800000;
+        if(_b.dueDate === ""){
+          _b.dueDate = "0"
         }
-        if (d1 < d2) {
-          // console.log("SWAP!")
-          // [dateFilter[j+1], dateFilter[j]] = [dateFilter[j],dateFilter[j+1]]
-          // console.log(dateFilter)
-          var tmp = dateFilter[j + 1];
-          dateFilter[j + 1] = dateFilter[j];
-          dateFilter[j] = tmp;
-          // console.log(dateFilter)
-        }
-      }
-    }
-    // console.log(dateFilter)
+        return (Date.parse(_a.dueDate) > Date.parse(_b.dueDate) ? 1 : Date.parse(_a.dueDate) < Date.parse(_b.dueDate)? -1 : 0)
+      })
+      const sortedReversed = sorted.reverse()
+      console.log(sortedReversed)
+      setCurNotifs(sortedReversed)
   }
+
 
   function categoryFilter(cat) {
     // console.log(cat);
@@ -140,23 +114,30 @@ export default function Prototype() {
         FilteredClasses.push(notif[i]);
       }
     }
+    console.log(FilteredClasses)
     setCurNotifs(FilteredClasses);
   }
 
-  function unreadFilter(){
+  function unreadFilter() {
     var FilteredClasses = [];
     for (var i = 0; i < notif.length; i++) {
       if (notif[i].markAsRead == "Unread") {
+        console.log(notif[i])
         FilteredClasses.push(notif[i]);
       }
     }
+    console.log(FilteredClasses)
     setCurNotifs(FilteredClasses);
+  }
+
+  function clearFilters(){
+    setCurNotifs(notif);
   }
 
   return (
     <>
-      <div id="sidebarContainer" className="w-full h-[90vh] flex bg-slate-300">
-        <div className="w-[15%] bg-slate-200 border-r-2 border-gray-400">
+      <div id="sidebarContainer" className="w-full flex pb-16">
+        <div className="w-[15%]">
           <p className="lg:flex justify-center mt-6 hidden text-2xl text-gray-500 font-semibold">
             Notifications
           </p>
@@ -181,16 +162,6 @@ export default function Prototype() {
             </button>
           </div>
           <div
-            title="Priority"
-            className="hover:cursor-pointer flex ml-[0%] justify-center lg:justify-start lg:ml-[10%] mt-4 items-center text-sm text-gray-500"
-          >
-            <ExclamationCircleIcon
-              className="mr-1.5 h-7 w-7 flex-shrink-0 text-gray-600"
-              aria-hidden="true"
-            />
-            <p className="hidden lg:block text-gray-600">Filter by Priority</p>
-          </div>
-          <div
             title="Category"
             className="hover:cursor-pointer flex ml-[0%] justify-center lg:justify-start lg:ml-[10%] mt-4 items-center text-sm text-gray-500"
           >
@@ -198,7 +169,7 @@ export default function Prototype() {
           </div>
           <div
             title="Unread"
-            className="hover:cursor-pointer flex ml-[0%] justify-center lg:justify-start lg:ml-[10%] mt-4 items-center text-sm text-gray-500"
+            className="hover:cursor-pointer flex ml-[0%] justify-center lg:justify-start lg:ml-[10%] mt-2 items-center text-sm text-gray-500"
             onClick={unreadFilter}
           >
             <InboxArrowDownIcon
@@ -217,16 +188,29 @@ export default function Prototype() {
             />
             <p className="hidden lg:block text-gray-600">Search</p>
           </div>
+          <div
+            title="Clear"
+            className="hover:cursor-pointer flex ml-[0%] justify-center lg:justify-start lg:ml-[10%] mt-4 items-center text-sm text-gray-500"
+            onClick={clearFilters}
+          >
+            <XCircleIcon
+              className="mr-1.5 h-7 w-7 flex-shrink-0 text-gray-600"
+              aria-hidden="true"
+            />
+            <p className="hidden lg:block text-gray-600">Clear Filters</p>
+          </div>
         </div>
-        <div id="notificationsContainer" className="w-[85%] ">
+        <div id="notificationsContainer" className="w-[85%] h-[100%] overflow-y-scroll">
           {curNotif?.map((e) => (
-            <Notification
+            <NotificationCard
               key={idGen() + "inner"}
-              isNew={false}
+              isNew={e['markAsRead']}
               name={e["header"]}
               _class={e["className"]}
-              type="Quiz"
+              type={e["category"]}
               due={e["dueDate"]}
+              isRead={e["markAsRead"]}
+              announcementMsg={e["announcement"]}
             />
           ))}
         </div>
