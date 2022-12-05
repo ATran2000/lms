@@ -28,33 +28,37 @@ export default function Prototype() {
   const [curNotif, setCurNotifs] = useState();
   const [uniqueClasses, setClasses] = useState();
 
+
+  async function getUniqueNotifications() {
+    const dataSlug = {
+      requestType: "uniqueNotifications",
+      // requestType is the client's request (right now, it is uniqueNotifications which happens when going to home page to notification page)
+      // i think could later be replaced by other client's requests such as sorts and filters
+    };
+
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(dataSlug),
+    };
+
+    const response = await fetch("http://localhost:8080/api", options);
+    const body = await response.json();
+    var uniqueNotifications = body.message;
+
+    return uniqueNotifications;
+  }
+
   // I believe this is where we should get the unique notifications and replace static data
   useEffect(() => {
     // function to receive unique notifications from the server side
-    async function getUniqueNotifications() {
-      const dataSlug = {
-        requestType: "uniqueNotifications",
-        // requestType is the client's request (right now, it is uniqueNotifications which happens when going to home page to notification page)
-        // i think could later be replaced by other client's requests such as sorts and filters
-      };
 
-      const options = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(dataSlug),
-      };
-
-      const response = await fetch("http://localhost:8080/api", options);
-      const body = await response.json();
-      var uniqueNotifications = body.message;
-
-      return uniqueNotifications;
-    }
 
     getUniqueNotifications().then((uniqueNotifications) => {
       setNotif(uniqueNotifications);
+      // console.log(uniqueNotifications)
       setCurNotifs(uniqueNotifications);
 
       var unqClasses = [];
@@ -85,24 +89,24 @@ export default function Prototype() {
         FilteredClasses.push(notif[i]);
       }
     }
-    console.log(FilteredClasses)
+    // console.log(FilteredClasses)
     setCurNotifs(FilteredClasses);
   }
   function dateFilter() {
-     const sorted = [...notif].sort(function(a,b){
-        var _a = a
-        var _b = b
-        if(_a.dueDate === ""){
-          _a.dueDate = "0"
-        }
-        if(_b.dueDate === ""){
-          _b.dueDate = "0"
-        }
-        return (Date.parse(_a.dueDate) > Date.parse(_b.dueDate) ? 1 : Date.parse(_a.dueDate) < Date.parse(_b.dueDate)? -1 : 0)
-      })
-      const sortedReversed = sorted.reverse()
-      console.log(sortedReversed)
-      setCurNotifs(sortedReversed)
+    const sorted = [...notif].sort(function (a, b) {
+      var _a = a
+      var _b = b
+      if (_a.dueDate === "") {
+        _a.dueDate = "0"
+      }
+      if (_b.dueDate === "") {
+        _b.dueDate = "0"
+      }
+      return (Date.parse(_a.dueDate) > Date.parse(_b.dueDate) ? 1 : Date.parse(_a.dueDate) < Date.parse(_b.dueDate) ? -1 : 0)
+    })
+    const sortedReversed = sorted.reverse()
+    // console.log(sortedReversed)
+    setCurNotifs(sortedReversed)
   }
 
 
@@ -114,7 +118,7 @@ export default function Prototype() {
         FilteredClasses.push(notif[i]);
       }
     }
-    console.log(FilteredClasses)
+    // console.log(FilteredClasses)
     setCurNotifs(FilteredClasses);
   }
 
@@ -122,15 +126,22 @@ export default function Prototype() {
     var FilteredClasses = [];
     for (var i = 0; i < notif.length; i++) {
       if (notif[i].markAsRead == "Unread") {
-        console.log(notif[i])
+        // console.log(notif[i])
         FilteredClasses.push(notif[i]);
       }
     }
-    console.log(FilteredClasses)
+    // console.log(FilteredClasses)
     setCurNotifs(FilteredClasses);
   }
 
-  function clearFilters(){
+  function changeRead() {
+    getUniqueNotifications().then((uniqueNotifications) => {
+      setNotif(uniqueNotifications);
+      // unreadFilter();
+    });
+  }
+
+  function clearFilters() {
     setCurNotifs(notif);
   }
 
@@ -211,6 +222,7 @@ export default function Prototype() {
               due={e["dueDate"]}
               isRead={e["markAsRead"]}
               announcementMsg={e["announcement"]}
+              readFunc={changeRead}
             />
           ))}
         </div>

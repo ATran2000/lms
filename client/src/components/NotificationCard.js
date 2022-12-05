@@ -21,7 +21,7 @@ function classNames(...classes) {
 }
 
 
-function NotificationCard({ name, _class, type, due, isRead, announcementMsg }) {
+function NotificationCard({ name, _class, type, due, isRead, announcementMsg, readFunc }) {
   const [_isRead, setIsRead] = useState(isRead);
 
   function markAsRead() {
@@ -37,10 +37,11 @@ function NotificationCard({ name, _class, type, due, isRead, announcementMsg }) 
       timestamp: "2022-11-01 01:00:00.000",
       announcement: announcementMsg
     };
-    console.log(_newN)
+    // console.log(_newN)
     updateNotifications(_newN).then((confMsg) => {
-      console.log("confMSG")
-      console.log(confMsg)
+      // console.log("confMSG")
+      // console.log(confMsg)
+      readFunc();
     })
 
   }
@@ -64,37 +65,31 @@ function NotificationCard({ name, _class, type, due, isRead, announcementMsg }) 
     const response = await fetch("http://localhost:8080/api2", options);
     const body = await response.json();
     var uniqueNotifications = body.message;
-    console.log("Got called");
+    // console.log("Got called");
     return uniqueNotifications;
   }
-
-  // function sendData() {
-  //   if (errMsgs.length === 0) {
-  //     var _newN = {
-  //       className: _class,
-  //       professorName: "Beta",
-  //       header: name,
-  //       category: categoryRef.current.value,
-  //       dueDate: due,
-  //       markAsRead: _isRead,
-  //       timestamp: "2022-11-01 01:00:00.000",
-  //     };
-  //     console.log(_newN)
-  //     // changeNewN(_newN);
-  //     btnClick(_newN).then((confMsg) => {
-  //       console.log(confMsg);
-  //     });
-
-  //   }
-  // }
-
+  var unReadStyle = {
+    display: "none"
+  }
+  // console.log(_isRead)
+  if (_isRead == "Unread") {
+    unReadStyle = {
+      display: "block"
+    }
+  } else {
+    var unReadStyle = {
+      display: "none"
+    }
+  }
   return (
     <div className="w-[100%] bg-white p-10 border-2 rounded-lg lg:flex lg:items-center lg:justify-between mb-3  ">
       <div className="min-w-0 flex-1">
         <div class="flex items-center">
-          {
+          {/* {
             _isRead == 'Unread' && <StarIcon className="mr-1.5 h-5 w-5 flex-shrink-0 text-yellow-400" aria-hidden="true" title="New Notification" />
-          }
+          } */}
+          <StarIcon className="mr-1.5 h-5 w-5 flex-shrink-0 text-yellow-400" aria-hidden="true" title="New Notification" style={unReadStyle}/>
+
           <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
             {name}
           </h2>
