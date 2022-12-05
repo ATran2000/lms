@@ -1,5 +1,6 @@
 {
   "homepage": "https://swegroup81.github.io/lms/",
+  "proxy": "https://swelms.herokuapp.com/",
   "name": "client",
   "version": "0.1.0",
   "private": true,
