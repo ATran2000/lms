@@ -134,6 +134,8 @@ export default function Prototype() {
     setCurNotifs(notif);
   }
 
+  let temp = 0;
+
   return (
     <>
       <div id="sidebarContainer" className="w-full flex pb-16">
