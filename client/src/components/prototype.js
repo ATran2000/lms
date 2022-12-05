@@ -44,9 +44,19 @@ export default function Prototype() {
       body: JSON.stringify(dataSlug),
     };
 
-    const response = await fetch("http://localhost:8080/api", options);
-    const body = await response.json();
-    var uniqueNotifications = body.message;
+      let url;
+      switch(process.env.NODE_ENV) {
+        case 'production':
+          url = 'https://swelms.herokuapp.com/';
+          break;
+        case 'development':
+        default:
+          url = 'http://localhost:8080';
+      }
+
+      const response = await fetch(url + "/api", options);
+      const body = await response.json();
+      var uniqueNotifications = body.message;
 
     return uniqueNotifications;
   }
