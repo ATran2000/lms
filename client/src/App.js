@@ -11,12 +11,14 @@ import AboutUs from "./components/aboutUs";
 import Home from "./components/home";
 import Prototype from "./components/prototype"
 import Navbar from './components/navBar'
+import ProfessorMode from "./components/professorMode";
 
 const App = () => {
   let routes = useRoutes([
     { 	path: "/", element: <Home />},
 	  {	  path: "/about", element: <AboutUs /> },
-    {   path: "/prototype", element: <Prototype />}
+    {   path: "/prototype", element: <Prototype />},
+    {   path: "/professor", element: <ProfessorMode />}
   ]);
   return routes;
 };
