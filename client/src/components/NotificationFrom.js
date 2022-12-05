@@ -5,11 +5,12 @@ function NotificationFrom({ btnClick, errMsgState }) {
   const headerRef = useRef(null);
   const categoryRef = useRef(null);
   const dateRef = useRef(null);
+  const ancRef = useRef(null);
+
+  const [repCheck, setRepCheck] = useState("");
 
   function sendData() {
     var errMsgs = [];
-    var date = dateRef.current.value;
-    console.log(classNameRef.current.value.length)
     if (classNameRef.current.value.length < 1) {
       errMsgs.push("Please enter a valid classname!")
     }
@@ -19,7 +20,11 @@ function NotificationFrom({ btnClick, errMsgState }) {
     if (dateRef.current.value.length < 1) {
       errMsgs.push("Please enter a valid due date!")
     }
-    if(errMsgs.length === 0) {
+    if (headerRef.current.value === repCheck) {
+      errMsgs.push("Please change the title!")
+    }
+    if (errMsgs.length === 0) {
+      setRepCheck(headerRef.current.value);
       var _newN = {
         className: classNameRef.current.value,
         professorName: "Beta",
@@ -28,22 +33,23 @@ function NotificationFrom({ btnClick, errMsgState }) {
         dueDate: dateRef.current.value,
         markAsRead: "Unread",
         timestamp: "2022-11-01 01:00:00.000",
+        announcement: ancRef.current.value
       };
       console.log(_newN)
       // changeNewN(_newN);
       btnClick(_newN).then((confMsg) => {
         console.log(confMsg);
       });
-      errMsgs.push("Sucess!")
+      errMsgs.push("Success!")
     }
     errMsgState(errMsgs)
-    
+
   }
 
   return (
     <div className="grid grid-cols-1">
       <div className="overflow-hidden shadow sm:rounded-md">
-        <div className="bg-white px-4 py-5 sm:p-6">
+        <div className="bg-white px-4 py-5 sm:p-6 grid grid-cols-1">
           <div className="grid grid-cols-6 gap-6">
             <div className="col-span-6 sm:col-span-3">
               <label htmlFor="className" className="block text-sm font-medium text-gray-700">
@@ -57,10 +63,10 @@ function NotificationFrom({ btnClick, errMsgState }) {
                 className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
               />
             </div>
-  
+
             <div className="col-span-6 sm:col-span-3">
               <label htmlFor="header" className="block text-sm font-medium text-gray-700">
-                Header
+                Title
               </label>
               <input
                 type="text"
@@ -70,22 +76,22 @@ function NotificationFrom({ btnClick, errMsgState }) {
                 className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
               />
             </div>
-  
-            <div className="col-span-6 sm:col-span-4">
+
+            <div className="col-span-6 sm:col-span-3">
               <label htmlFor="category" className="block text-sm font-medium text-gray-700">
                 Category
               </label>
               <select ref={categoryRef} type="text" name="category">
-              <option value="Homework">Homework</option>
-              <option value="Quiz">Quiz</option>
-              <option value="Exam">Exam</option>
-              <option value="Paper">Paper</option>
-              <option value="Discussion">Discussion</option>
-              <option value="Reading">Reading</option>
-              <option value="Announcement">Announcement</option>
-            </select>
+                <option value="Homework">Homework</option>
+                <option value="Quiz">Quiz</option>
+                <option value="Exam">Exam</option>
+                <option value="Paper">Paper</option>
+                <option value="Discussion">Discussion</option>
+                <option value="Reading">Reading</option>
+                <option value="Announcement">Announcement</option>
+              </select>
             </div>
-  
+
             <div className="col-span-6 sm:col-span-3">
               <label htmlFor="country" className="block text-sm font-medium text-gray-700">
                 Due Date
@@ -98,6 +104,12 @@ function NotificationFrom({ btnClick, errMsgState }) {
                 className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
               >
               </input>
+            </div>
+            <div className="col-span-12 sm:col-span-6">
+              <label htmlFor="country" className="block text-sm font-medium text-gray-700">
+                Announcement Message (optional):
+              </label>
+              <textarea ref={ancRef} className="w-full" placeholder="Type announcement here" rows="4"></textarea>
             </div>
           </div>
         </div>
@@ -112,7 +124,7 @@ function NotificationFrom({ btnClick, errMsgState }) {
       </div>
     </div>
   );
-  }
+}
 
 
 
