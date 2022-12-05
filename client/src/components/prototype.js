@@ -181,16 +181,6 @@ export default function Prototype() {
             </button>
           </div>
           <div
-            title="Priority"
-            className="hover:cursor-pointer flex ml-[0%] justify-center lg:justify-start lg:ml-[10%] mt-4 items-center text-sm text-gray-500"
-          >
-            <ExclamationCircleIcon
-              className="mr-1.5 h-7 w-7 flex-shrink-0 text-gray-600"
-              aria-hidden="true"
-            />
-            <p className="hidden lg:block text-gray-600">Filter by Priority</p>
-          </div>
-          <div
             title="Category"
             className="hover:cursor-pointer flex ml-[0%] justify-center lg:justify-start lg:ml-[10%] mt-4 items-center text-sm text-gray-500"
           >

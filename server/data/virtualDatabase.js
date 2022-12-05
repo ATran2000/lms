@@ -64,9 +64,11 @@ async function getDataVirtualDatabase(dataSlug) {
 }
 async function setDataVirtualDatabase(dataSlug) {
     // if statements to determine request type
-    console.log("GOT HERE");
     if (dataSlug.requestType == "sendNotification") { // this request will return a list of all notifications for the student
         return await newNotification(dataSlug.dataGuy);
+    }
+    if (dataSlug.requestType == "updateReadStatus") { // this request will return a list of all notifications for the student
+        return await updateRead(dataSlug.dataGuy);
     }
 }
 
@@ -100,5 +102,25 @@ async function newNotification(Notification) {
     }
 
     return newStudentA;
+}
+
+async function updateRead(readStatus){
+    try {
+        // var uniqueNotifications = aStudent.notifications;
+        var oldN = JSON.stringify(aStudent.notifications);
+        var newN = JSON.stringify(Notification);
+        var temp = ""
+        for(var i = 0; i < (oldN.length-1); i++){
+            temp = temp + oldN[i];
+        }
+        
+        newN = temp + "," + newN + "]" ;
+        newN = JSON.parse(newN);
+
+        aStudent.notifications = newN;
+        var newStudentA = aStudent.notifications;
+    } catch (e) {
+        console.error(e);
+    }
 }
 
