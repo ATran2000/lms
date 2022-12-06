@@ -9,6 +9,7 @@ import alvin from './../images/alvin.jpeg'
 import leonard from './../images/leonard.jpeg'
 import tony from './../images/tony.jpeg'
 import desc from './../desc.pdf'
+import srs from './../SRS.pdf'
 
 export default function aboutUs() {
   return (
@@ -60,8 +61,7 @@ export default function aboutUs() {
                     <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Important Links</p>
                     <div class="flex justify-center mt-6">
                         <a href={desc} target="_blank"><button class="bg-indigo-700 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded ml-2 mr-2">Original Project Description</button></a>
-                        <button onClick={() => alert("This button is currently a placeholder, as this assignment has not been completed yet.")} class="bg-indigo-700 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded ml-2 mr-2">SRS</button>
-                        <button onClick={() => alert("This button is currently a placeholder, as this assignment has not been completed yet.")} class="bg-indigo-700 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded ml-2 mr-2">Prototype</button>
+                        <a href={srs} target="_blank"><button class="bg-indigo-700 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded ml-2 mr-2">SRS</button>
                         <button onClick={() => alert("This button is currently a placeholder, as this assignment has not been completed yet.")} class="bg-indigo-700 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded ml-2 mr-2">Domain Search Bibliography</button>
                     </div>
                 </div>
