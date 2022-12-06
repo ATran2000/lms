@@ -2,6 +2,7 @@ const express = require("express");
 var cors = require('cors');
 const app = express();
 const virtualDatabase = require('./data/virtualDatabase.js');
+var path = require('path');
 
 app.post("/post", (req, res) => {
   console.log("Connected to React");
