@@ -29,6 +29,39 @@ export default function Prototype() {
   const [uniqueClasses, setClasses] = useState();
   const [searchInput = '', setSearchInput] = useState();
 
+
+  async function getUniqueNotifications() {
+    const dataSlug = {
+      requestType: "uniqueNotifications",
+      // requestType is the client's request (right now, it is uniqueNotifications which happens when going to home page to notification page)
+      // i think could later be replaced by other client's requests such as sorts and filters
+    };
+
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(dataSlug),
+    };
+
+//       let url;
+//       switch(process.env.NODE_ENV) {
+//         case 'production':
+//           url = 'https://swelms.herokuapp.com';
+//           break;
+//         case 'development':
+//         default:
+//           url = 'http://localhost:8080';
+//       }
+
+      const response = await fetch("https://swelms.herokuapp.com/api", options);
+      const body = await response.json();
+      var uniqueNotifications = body.message;
+
+    return uniqueNotifications;
+  }
+
   // I believe this is where we should get the unique notifications and replace static data
   useEffect(() => {
     // function to receive unique notifications from the server side
