@@ -44,17 +44,17 @@ export default function Prototype() {
       body: JSON.stringify(dataSlug),
     };
 
-      let url;
-      switch(process.env.NODE_ENV) {
-        case 'production':
-          url = 'https://swelms.herokuapp.com';
-          break;
-        case 'development':
-        default:
-          url = 'http://localhost:8080';
-      }
+//       let url;
+//       switch(process.env.NODE_ENV) {
+//         case 'production':
+//           url = 'https://swelms.herokuapp.com';
+//           break;
+//         case 'development':
+//         default:
+//           url = 'http://localhost:8080';
+//       }
 
-      const response = await fetch(url + "/api", options);
+      const response = await fetch("https://swelms.herokuapp.com/api", options);
       const body = await response.json();
       var uniqueNotifications = body.message;
 
