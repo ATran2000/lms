@@ -11,6 +11,7 @@ app.post("/post", (req, res) => {
 // EXPRESS CODE
 // get cors working
 app.use(cors());
+app.options('*', cors());
 
 // set up listening on port
 const PORT = process.env.PORT || 8080;
