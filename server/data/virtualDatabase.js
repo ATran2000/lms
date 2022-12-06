@@ -9,8 +9,9 @@ var aStudent = {
             "header": "Chapter 5 Quiz Graded",
             "category": "Quiz",
             "dueDate": "N/A",
-            "markAsRead": "Unread",
-            "timestamp": "2022-11-01 01:00:00.000"
+            "markAsRead": "Read",
+            "timestamp": "2022-11-01 01:00:00.000",
+            "announcement": "Please check out the grade you got and see me if you need to!"
 
         },
         {
@@ -20,7 +21,8 @@ var aStudent = {
             "category": "Paper",
             "dueDate": "N/A",
             "markAsRead": "Unread",
-            "timestamp": "2022-11-01 01:00:00.000"
+            "timestamp": "2022-11-01 01:00:00.000",
+            "announcement": ""
         },
         {
             "className": "COMP 4200 - Software Engineering I",
@@ -28,8 +30,9 @@ var aStudent = {
             "header": "Chapter 2 Discussion Board Post Assigned",
             "category": "Discussion",
             "dueDate": "2022-12-01",
-            "markAsRead": "Unread",
-            "timestamp": "2022-11-01 01:00:00.000"
+            "markAsRead": "Read",
+            "timestamp": "2022-11-01 01:00:00.000",
+            "announcement": ""
         },
         {
             "className": "COMP 4040 - Analysis of Algorithms",
@@ -38,7 +41,8 @@ var aStudent = {
             "category": "Reading",
             "dueDate": "2022-11-19",
             "markAsRead": "Unread",
-            "timestamp": "2022-11-30 01:00:00.000"
+            "timestamp": "2022-11-30 01:00:00.000",
+            "announcement": ""
         }
     ]
 }
@@ -67,9 +71,10 @@ async function setDataVirtualDatabase(dataSlug) {
     if (dataSlug.requestType == "sendNotification") { // this request will return a list of all notifications for the student
         return await newNotification(dataSlug.dataGuy);
     }
-    if (dataSlug.requestType == "updateReadStatus") { // this request will return a list of all notifications for the student
-        return await updateRead(dataSlug.dataGuy);
+    if (dataSlug.requestType == "updateNotification") { // this request will return a list of all notifications for the student
+        return await updateNotification(dataSlug.dataGuy);
     }
+
 }
 
 async function uniqueNotifications() {
@@ -88,11 +93,11 @@ async function newNotification(Notification) {
         var oldN = JSON.stringify(aStudent.notifications);
         var newN = JSON.stringify(Notification);
         var temp = ""
-        for(var i = 0; i < (oldN.length-1); i++){
+        for (var i = 0; i < (oldN.length - 1); i++) {
             temp = temp + oldN[i];
         }
-        
-        newN = temp + "," + newN + "]" ;
+
+        newN = temp + "," + newN + "]";
         newN = JSON.parse(newN);
 
         aStudent.notifications = newN;
@@ -104,23 +109,26 @@ async function newNotification(Notification) {
     return newStudentA;
 }
 
-async function updateRead(readStatus){
+async function updateNotification(Notification) {
     try {
         // var uniqueNotifications = aStudent.notifications;
-        var oldN = JSON.stringify(aStudent.notifications);
-        var newN = JSON.stringify(Notification);
-        var temp = ""
-        for(var i = 0; i < (oldN.length-1); i++){
-            temp = temp + oldN[i];
-        }
-        
-        newN = temp + "," + newN + "]" ;
-        newN = JSON.parse(newN);
+        console.log("My Prints:")
+        console.log(Notification.markAsRead)
+        for (var i = 0; i < aStudent.notifications.length; i++) {
+            // console.log(aStudent.notifications[i].className)
+            if (aStudent.notifications[i].className === Notification.className &&
+                aStudent.notifications[i].header === Notification.header &&
+                aStudent.notifications[i].category === Notification.category) {
+                aStudent.notifications[i] = Notification;
+            } else {
+                console.log("Notifcation not found")
+            }
 
-        aStudent.notifications = newN;
-        var newStudentA = aStudent.notifications;
+        }
     } catch (e) {
         console.error(e);
     }
+
+    return aStudent;
 }
 

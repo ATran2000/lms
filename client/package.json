@@ -1,4 +1,5 @@
 {
+  "homepage": "https://swegroup81.github.io/lms/",
   "name": "client",
   "version": "0.1.0",
   "private": true,
@@ -12,9 +13,12 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.4.3",
     "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "gh-pages": "^4.0.0"
   },
   "scripts": {
+    "predeploy": "npm run install-client && npm run install-server",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

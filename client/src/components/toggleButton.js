@@ -5,7 +5,7 @@ export default function Toggle({_enabled, onEnabled}) {
     if (_enabled) { tgMsg = "On" }
 
     return (
-        <div className="relative flex flex-col items-center justify-center overflow-hidden border">
+        <div className="relative flex flex-col items-center justify-center overflow-hidden">
             <div>
                 <p className= "text-sm font-medium text-gray-900">Teacher Mode</p>
             </div>

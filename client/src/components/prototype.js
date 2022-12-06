@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import Notification from "./notification";
+import NotificationCard from "./NotificationCard";
 import ClassDropdown from "./classDropdown";
 import CategoryDropDown from "./categoryDropDown";
 
@@ -16,6 +17,7 @@ import {
   MagnifyingGlassCircleIcon,
   MagnifyingGlassIcon,
   TagIcon,
+  XCircleIcon,
 } from "@heroicons/react/20/solid";
 
 export default function Prototype() {
@@ -26,33 +28,47 @@ export default function Prototype() {
   const [curNotif, setCurNotifs] = useState();
   const [uniqueClasses, setClasses] = useState();
 
-  // I believe this is where we should get the unique notifications and replace static data
-  useEffect(() => {
-    // function to receive unique notifications from the server side
-    async function getUniqueNotifications() {
-      const dataSlug = {
-        requestType: "uniqueNotifications",
-        // requestType is the client's request (right now, it is uniqueNotifications which happens when going to home page to notification page)
-        // i think could later be replaced by other client's requests such as sorts and filters
-      };
 
-      const options = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(dataSlug),
-      };
+  async function getUniqueNotifications() {
+    const dataSlug = {
+      requestType: "uniqueNotifications",
+      // requestType is the client's request (right now, it is uniqueNotifications which happens when going to home page to notification page)
+      // i think could later be replaced by other client's requests such as sorts and filters
+    };
 
-      const response = await fetch("http://localhost:8080/api", options);
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(dataSlug),
+    };
+
+      let url;
+      switch(process.env.NODE_ENV) {
+        case 'production':
+          url = 'https://swelms.herokuapp.com/';
+          break;
+        case 'development':
+        default:
+          url = 'http://localhost:8080';
+      }
+
+      const response = await fetch(url + "/api", options);
       const body = await response.json();
       var uniqueNotifications = body.message;
 
-      return uniqueNotifications;
-    }
+    return uniqueNotifications;
+  }
+
+  // I believe this is where we should get the unique notifications and replace static data
+  useEffect(() => {
+    // function to receive unique notifications from the server side
+
 
     getUniqueNotifications().then((uniqueNotifications) => {
       setNotif(uniqueNotifications);
+      // console.log(uniqueNotifications)
       setCurNotifs(uniqueNotifications);
 
       var unqClasses = [];
@@ -83,54 +99,26 @@ export default function Prototype() {
         FilteredClasses.push(notif[i]);
       }
     }
+    // console.log(FilteredClasses)
     setCurNotifs(FilteredClasses);
   }
-
-  //WIP
   function dateFilter() {
-    const date = new Date();
-    // date.getDate()
-    var date1 = Date.parse("2022-11-16");
-    var date2 = Date.parse("2022-11-17");
-    // console.log(date2)
-    // console.log(Date.parse("0"))
-    if (date1 > date2) {
-      // console.log("2022-11-19 > 2022-11-17");
-      // console.log(date1 + " > " + date2);
-    }
-    var dateFilter = [];
-    for (var i = 0; i < notif.length; i++) {
-      dateFilter.push(notif[i]);
-    }
-    // console.log(dateFilter)
-
-    for (var i = 0; i < dateFilter.length; i++) {
-      // console.log(dateFilter)
-      for (var j = 0; j < dateFilter.length - 1; j++) {
-        // console.log(dateFilter[j + 1].dueDate + " < " + dateFilter[j].dueDate)
-        // console.log(Date.parse(dateFilter[j + 1].dueDate) + " < " + Date.parse(dateFilter[j].dueDate))
-        var d1 = Date.parse(dateFilter[j + 1].dueDate);
-        var d2 = Date.parse(dateFilter[j].dueDate);
-
-        if (d1 == NaN) {
-          d1 = 946702800000;
-        }
-        if (d2 == NaN) {
-          d2 = 946702800000;
-        }
-        if (d1 < d2) {
-          // console.log("SWAP!")
-          // [dateFilter[j+1], dateFilter[j]] = [dateFilter[j],dateFilter[j+1]]
-          // console.log(dateFilter)
-          var tmp = dateFilter[j + 1];
-          dateFilter[j + 1] = dateFilter[j];
-          dateFilter[j] = tmp;
-          // console.log(dateFilter)
-        }
+    const sorted = [...notif].sort(function (a, b) {
+      var _a = a
+      var _b = b
+      if (_a.dueDate === "") {
+        _a.dueDate = "0"
       }
-    }
-    // console.log(dateFilter)
+      if (_b.dueDate === "") {
+        _b.dueDate = "0"
+      }
+      return (Date.parse(_a.dueDate) > Date.parse(_b.dueDate) ? 1 : Date.parse(_a.dueDate) < Date.parse(_b.dueDate) ? -1 : 0)
+    })
+    const sortedReversed = sorted.reverse()
+    // console.log(sortedReversed)
+    setCurNotifs(sortedReversed)
   }
+
 
   function categoryFilter(cat) {
     // console.log(cat);
@@ -140,23 +128,37 @@ export default function Prototype() {
         FilteredClasses.push(notif[i]);
       }
     }
+    // console.log(FilteredClasses)
     setCurNotifs(FilteredClasses);
   }
 
-  function unreadFilter(){
+  function unreadFilter() {
     var FilteredClasses = [];
     for (var i = 0; i < notif.length; i++) {
       if (notif[i].markAsRead == "Unread") {
+        // console.log(notif[i])
         FilteredClasses.push(notif[i]);
       }
     }
+    // console.log(FilteredClasses)
     setCurNotifs(FilteredClasses);
+  }
+
+  function changeRead() {
+    getUniqueNotifications().then((uniqueNotifications) => {
+      setNotif(uniqueNotifications);
+      // unreadFilter();
+    });
+  }
+
+  function clearFilters() {
+    setCurNotifs(notif);
   }
 
   return (
     <>
-      <div id="sidebarContainer" className="w-full h-[90vh] flex bg-slate-300">
-        <div className="w-[15%] bg-slate-200 border-r-2 border-gray-400">
+      <div id="sidebarContainer" className="w-full flex pb-16">
+        <div className="w-[15%]">
           <p className="lg:flex justify-center mt-6 hidden text-2xl text-gray-500 font-semibold">
             Notifications
           </p>
@@ -188,7 +190,7 @@ export default function Prototype() {
           </div>
           <div
             title="Unread"
-            className="hover:cursor-pointer flex ml-[0%] justify-center lg:justify-start lg:ml-[10%] mt-4 items-center text-sm text-gray-500"
+            className="hover:cursor-pointer flex ml-[0%] justify-center lg:justify-start lg:ml-[10%] mt-2 items-center text-sm text-gray-500"
             onClick={unreadFilter}
           >
             <InboxArrowDownIcon
@@ -207,16 +209,30 @@ export default function Prototype() {
             />
             <p className="hidden lg:block text-gray-600">Search</p>
           </div>
+          <div
+            title="Clear"
+            className="hover:cursor-pointer flex ml-[0%] justify-center lg:justify-start lg:ml-[10%] mt-4 items-center text-sm text-gray-500"
+            onClick={clearFilters}
+          >
+            <XCircleIcon
+              className="mr-1.5 h-7 w-7 flex-shrink-0 text-gray-600"
+              aria-hidden="true"
+            />
+            <p className="hidden lg:block text-gray-600">Clear Filters</p>
+          </div>
         </div>
-        <div id="notificationsContainer" className="w-[85%] ">
+        <div id="notificationsContainer" className="w-[85%] h-[100%] overflow-y-scroll">
           {curNotif?.map((e) => (
-            <Notification
+            <NotificationCard
               key={idGen() + "inner"}
-              isNew={false}
+              isNew={e['markAsRead']}
               name={e["header"]}
               _class={e["className"]}
-              type="Quiz"
+              type={e["category"]}
               due={e["dueDate"]}
+              isRead={e["markAsRead"]}
+              announcementMsg={e["announcement"]}
+              readFunc={changeRead}
             />
           ))}
         </div>
