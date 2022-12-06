@@ -36,7 +36,7 @@ function ProfessorMode() {
       display: "none"
     }
   } else {
-    if (errMsg[0] === "Sucess!") {
+    if (errMsg[0] === "Success!") {
       errCss = {
         display: "grid",
         backgroundColor: "rgb(190 242 100)"
