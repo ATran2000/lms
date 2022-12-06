@@ -61,7 +61,7 @@ export default function aboutUs() {
                     <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Important Links</p>
                     <div class="flex justify-center mt-6">
                         <a href={desc} target="_blank"><button class="bg-indigo-700 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded ml-2 mr-2">Original Project Description</button></a>
-                        <a href={srs} target="_blank"><button class="bg-indigo-700 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded ml-2 mr-2">SRS</button>
+                        <a href={srs} target="_blank"><button class="bg-indigo-700 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded ml-2 mr-2">SRS</button></a>
                         <button onClick={() => alert("This button is currently a placeholder, as this assignment has not been completed yet.")} class="bg-indigo-700 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded ml-2 mr-2">Domain Search Bibliography</button>
                     </div>
                 </div>
