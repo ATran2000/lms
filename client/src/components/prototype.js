@@ -27,6 +27,7 @@ export default function Prototype() {
   //For all notif
   const [curNotif, setCurNotifs] = useState();
   const [uniqueClasses, setClasses] = useState();
+  const [searchInput = '', setSearchInput] = useState();
 
   // I believe this is where we should get the unique notifications and replace static data
   useEffect(() => {
@@ -89,20 +90,20 @@ export default function Prototype() {
     setCurNotifs(FilteredClasses);
   }
   function dateFilter() {
-     const sorted = [...notif].sort(function(a,b){
-        var _a = a
-        var _b = b
-        if(_a.dueDate === ""){
-          _a.dueDate = "0"
-        }
-        if(_b.dueDate === ""){
-          _b.dueDate = "0"
-        }
-        return (Date.parse(_a.dueDate) > Date.parse(_b.dueDate) ? 1 : Date.parse(_a.dueDate) < Date.parse(_b.dueDate)? -1 : 0)
-      })
-      const sortedReversed = sorted.reverse()
-      console.log(sortedReversed)
-      setCurNotifs(sortedReversed)
+    const sorted = [...notif].sort(function (a, b) {
+      var _a = a
+      var _b = b
+      if (_a.dueDate === "") {
+        _a.dueDate = "0"
+      }
+      if (_b.dueDate === "") {
+        _b.dueDate = "0"
+      }
+      return (Date.parse(_a.dueDate) > Date.parse(_b.dueDate) ? 1 : Date.parse(_a.dueDate) < Date.parse(_b.dueDate) ? -1 : 0)
+    })
+    const sortedReversed = sorted.reverse()
+    console.log(sortedReversed)
+    setCurNotifs(sortedReversed)
   }
 
 
@@ -130,11 +131,31 @@ export default function Prototype() {
     setCurNotifs(FilteredClasses);
   }
 
-  function clearFilters(){
-    setCurNotifs(notif);
+  function searchBarFilter(event) {
+    event.preventDefault();
+    // console.log(event.target.value)
+    setSearchInput(event.target.value);
+
+    // would rather just use searchInput value, but for some reason, it is 1 change behind event.target.value so event.target.value is used instead for precise search filtering
+    if (event.target.value != '') {
+      if (event.target.value.length > 0) {
+        var FilteredClasses = [];
+        notif.filter((notif) => {
+          if (notif.header.toLowerCase().match(event.target.value.toLowerCase()) || notif.className.toLowerCase().match(event.target.value.toLowerCase())
+            || notif.category.toLowerCase().match(event.target.value.toLowerCase()) || notif.dueDate.match(event.target.value.toLowerCase())) {
+            FilteredClasses.push(notif);
+          }
+        })
+      }
+      setCurNotifs(FilteredClasses);
+    } else {
+      setCurNotifs(notif);
+    }
   }
 
-  let temp = 0;
+  function clearFilters() {
+    setCurNotifs(notif);
+  }
 
   return (
     <>
@@ -188,7 +209,17 @@ export default function Prototype() {
               className="mr-1.5 h-7 w-7 flex-shrink-0 text-gray-600"
               aria-hidden="true"
             />
-            <p className="hidden lg:block text-gray-600">Search</p>
+            <div class="mb-3 h-7 xl:w-40">
+              <div class="input-group relative flex flex-wrap items-stretch w-full mb-4 rounded">
+                <input type="search" class="form-control relative flex-auto min-w-0 block w-full px-3 py-1.5 text-base font-normal 
+                border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                  placeholder="Search" aria-label="Search" aria-describedby="button-addon2" onChange={searchBarFilter} value={searchInput}>
+                </input>
+                <span class="input-group-text flex items-center px-3 py-1.5 text-base font-normal text-gray-700 
+                text-center whitespace-nowrap rounded" id="basic-addon2">
+                </span>
+              </div>
+            </div>
           </div>
           <div
             title="Clear"
