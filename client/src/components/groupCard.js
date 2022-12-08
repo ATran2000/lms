@@ -19,6 +19,7 @@ export default function groupCard(props) {
                     {props.name}
                 </a>
             <p class="italic">{props.role}</p>
+            <p class="italic">{props.email}</p>
         </div>
     </>
   )
