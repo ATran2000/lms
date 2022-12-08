@@ -8,8 +8,15 @@ import caleb from './../images/Caleb.jfif'
 import alvin from './../images/alvin.jpeg'
 import leonard from './../images/leonard.jpeg'
 import tony from './../images/tony.jpeg'
-import desc from './../desc.pdf'
-import srs from './../SRS.pdf'
+import project_description from './../project_description.pdf'
+import presentation from './../presentation.pptx'
+import srs_v1 from './../srs_v1.pdf'
+import srs_v2 from './../srs_v2.pdf'
+import requirements from './../requirements.pdf'
+import use_case_diagram from './../use_case_diagram.jpg'
+import class_diagram from './../class_diagram.jpg'
+import sequence_diagram_1 from './../sequence_diagram_1.jpg'
+import sequence_diagram_2 from './../sequence_diagram_2.jpg'
 
 export default function aboutUs() {
   return (
@@ -20,25 +27,25 @@ export default function aboutUs() {
             </div>
 
             <div id="row1desktop" class="sm:hidden lg:flex justify-center lg:space-x-10 xl:space-x-20 w-[100vw]">
-                <GroupCard name={"Cam Benassi"} link={"https://www.linkedin.com/in/cambenassi/"} role="Full Stack Engineer" img={cam}/>
-                <GroupCard name={"Caleb Bergen"} link={"https://www.linkedin.com/in/caleb-bergen-62b395236/"} role="Full Stack Engineer" img={caleb}/>
-                <GroupCard name={"Alvin Tran"} link={"https://www.linkedin.com/in/alvin-v-tran/"} role="Backend Engineer" img={alvin}/>
+                <GroupCard name={"Cam Benassi"} link={"https://www.linkedin.com/in/cambenassi/"} role="Full Stack Engineer" email="Cameron_Benassi@student.uml.edu" img={cam}/>
+                <GroupCard name={"Caleb Bergen"} link={"https://www.linkedin.com/in/caleb-bergen-62b395236/"} role="Full Stack Engineer" email="Caleb_Bergen@student.uml.edu" img={caleb}/>
+                <GroupCard name={"Alvin Tran"} link={"https://www.linkedin.com/in/alvin-v-tran/"} role="Backend Engineer" email="Alvin_Tran@student.uml.edu" img={alvin}/>
             </div>
             <div id="row2desktop" class="sm:hidden lg:flex justify-center w-[100vw] mt-28 space-x-20 mb-28">
-                <GroupCard name={"Leonard Nguyen"} link={"https://www.linkedin.com/in/leonard-nguyen-3a58121a9"} role="Software Engineer" img={leonard}/>
-                <GroupCard name={"Tony Choma"} link={"https://www.linkedin.com/in/tony-choma-943825246/"} role="Full Stack Engineer" img={tony}/>
+                <GroupCard name={"Leonard Nguyen"} link={"https://www.linkedin.com/in/leonard-nguyen-3a58121a9"} role="Software Engineer" email="Leonard_Nguyen@student.uml.edu" img={leonard}/>
+                <GroupCard name={"Tony Choma"} link={"https://www.linkedin.com/in/tony-choma-943825246/"} role="Full Stack Engineer" email="Tony_Choma@student.uml.edu" img={tony}/>
             </div>
 
             <div id="row1mobile" class="sm:flex lg:hidden justify-center space-x-10 w-[100vw]">
-                <GroupCard name={"Cam Benassi"} link={"https://www.linkedin.com/in/cambenassi/"} role="Full Stack Engineer" img={cam}/>
-                <GroupCard name={"Caleb Bergen"} link={"https://www.linkedin.com/in/caleb-bergen-62b395236/"} role="Full Stack Engineer" img={caleb}/>
+                <GroupCard name={"Cam Benassi"} link={"https://www.linkedin.com/in/cambenassi/"} role="Full Stack Engineer" email="Cameron_Benassi@student.uml.edu" img={cam}/>
+                <GroupCard name={"Caleb Bergen"} link={"https://www.linkedin.com/in/caleb-bergen-62b395236/"} role="Full Stack Engineer" email="Caleb_Bergen@student.uml.edu" img={caleb}/>
             </div>
             <div id="row2mobile" class="sm:flex lg:hidden justify-center space-x-10 w-[100vw] mt-28 mb-28">
-                <GroupCard name={"Alvin Tran"} link={"https://www.linkedin.com/in/alvin-v-tran/"} role="Backend Engineer" img={alvin}/>
-                <GroupCard name={"Leonard Nguyen"} link={"www.linkedin.com/in/leonard-nguyen-3a58121a9"} role="Full Stack Engineer" img={leonard}/>
+                <GroupCard name={"Alvin Tran"} link={"https://www.linkedin.com/in/alvin-v-tran/"} role="Backend Engineer" email="Alvin_Tran@student.uml.edu" img={alvin}/>
+                <GroupCard name={"Leonard Nguyen"} link={"www.linkedin.com/in/leonard-nguyen-3a58121a9"} role="Full Stack Engineer" email="Leonard_Nguyen@student.uml.edu" img={leonard}/>
             </div>
             <div id="row3mobile" class="sm:flex lg:hidden justify-center w-[100vw] mt-28 space-x-20 mb-28">
-                <GroupCard name={"Tony Choma"} link={"https://www.linkedin.com/in/tony-choma-943825246/"} role="Full Stack Engineer" img={tony}/>
+                <GroupCard name={"Tony Choma"} link={"https://www.linkedin.com/in/tony-choma-943825246/"} role="Full Stack Engineer" email="Tony_Choma@student.uml.edu" img={tony}/>
             </div>
 
             <div class="flex justify-center mb-10">
@@ -60,8 +67,15 @@ export default function aboutUs() {
                 <div class="w-[90vw] h-fit py-5 bg-white rounded-xl drop-shadow-md text-center">
                     <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Important Links</p>
                     <div class="flex justify-center mt-6">
-                        <a href={desc} target="_blank"><button class="bg-indigo-700 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded ml-2 mr-2">Original Project Description</button></a>
-                        <a href={srs} target="_blank"><button class="bg-indigo-700 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded ml-2 mr-2">SRS</button></a>
+                        <a href={project_description} target="_blank"><button class="bg-indigo-700 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded ml-2 mr-2">Original Project Description</button></a>
+                        <a href={presentation} target="_blank"><button class="bg-indigo-700 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded ml-2 mr-2">Presentation</button></a>     
+                        <a href={srs_v1} target="_blank"><button class="bg-indigo-700 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded ml-2 mr-2">SRS_V1</button></a>
+                        <a href={srs_v2} target="_blank"><button class="bg-indigo-700 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded ml-2 mr-2">SRS_V2</button></a>
+                        <a href={requirements} target="_blank"><button class="bg-indigo-700 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded ml-2 mr-2">Specific Requirements</button></a>
+                        <a href={use_case_diagram} target="_blank"><button class="bg-indigo-700 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded ml-2 mr-2">Use Case Diagram</button></a>
+                        <a href={class_diagram} target="_blank"><button class="bg-indigo-700 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded ml-2 mr-2">Class Diagram</button></a>
+                        <a href={sequence_diagram_1} target="_blank"><button class="bg-indigo-700 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded ml-2 mr-2">Sequence Diagram 1</button></a>
+                        <a href={sequence_diagram_2} target="_blank"><button class="bg-indigo-700 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded ml-2 mr-2">Sequence Diagram 2</button></a>
                         <button onClick={() => alert("This button is currently a placeholder, as this assignment has not been completed yet.")} class="bg-indigo-700 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded ml-2 mr-2">Domain Search Bibliography</button>
                     </div>
                 </div>
