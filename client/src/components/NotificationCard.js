@@ -62,7 +62,7 @@ function NotificationCard({ name, _class, type, due, isRead, announcementMsg, re
       body: JSON.stringify(dataSlug),
     };
 
-    const response = await fetch("http://localhost:8080/api2", options);
+    const response = await fetch("https://swelms.herokuapp.com/api2", options);
     const body = await response.json();
     var uniqueNotifications = body.message;
     // console.log("Got called");
