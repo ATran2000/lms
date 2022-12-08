@@ -9,6 +9,7 @@ import alvin from './../images/alvin.jpeg'
 import leonard from './../images/leonard.jpeg'
 import tony from './../images/tony.jpeg'
 import project_description from './../project_description.pdf'
+import domain_research from './../domain_research.pdf'
 import presentation from './../presentation.pptx'
 import srs_v1 from './../srs_v1.pdf'
 import srs_v2 from './../srs_v2.pdf'
@@ -17,6 +18,9 @@ import use_case_diagram from './../use_case_diagram.jpg'
 import class_diagram from './../class_diagram.jpg'
 import sequence_diagram_1 from './../sequence_diagram_1.jpg'
 import sequence_diagram_2 from './../sequence_diagram_2.jpg'
+var demonstration_video = 'https://www.youtube.com/watch?v=8qx3LmZxZ70';
+var prototype_website = 'https://swelms.herokuapp.com/';
+var prototype_github = 'https://github.com/swegroup81/lms';
 
 export default function aboutUs() {
   return (
@@ -68,15 +72,20 @@ export default function aboutUs() {
                     <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Important Links</p>
                     <div class="flex justify-center mt-6">
                         <a href={project_description} target="_blank"><button class="bg-indigo-700 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded ml-2 mr-2">Original Project Description</button></a>
+                        <a href={domain_research} target="_blank"><button class="bg-indigo-700 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded ml-2 mr-2">Domain Research</button></a>
+                        <a href={prototype_website} target="_blank"><button class="bg-indigo-700 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded ml-2 mr-2">Prototype</button></a>
+                        <a href={prototype_github} target="_blank"><button class="bg-indigo-700 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded ml-2 mr-2">Github for Prototype</button></a>
                         <a href={presentation} target="_blank"><button class="bg-indigo-700 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded ml-2 mr-2">Presentation</button></a>     
                         <a href={srs_v1} target="_blank"><button class="bg-indigo-700 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded ml-2 mr-2">SRS_V1</button></a>
                         <a href={srs_v2} target="_blank"><button class="bg-indigo-700 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded ml-2 mr-2">SRS_V2</button></a>
+                        <a href={demonstration_video} target="_blank"><button class="bg-indigo-700 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded ml-2 mr-2">Demonstration Video</button></a>                  
+                    </div>
+                    <div class="flex justify-center mt-6">              
                         <a href={requirements} target="_blank"><button class="bg-indigo-700 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded ml-2 mr-2">Specific Requirements</button></a>
                         <a href={use_case_diagram} target="_blank"><button class="bg-indigo-700 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded ml-2 mr-2">Use Case Diagram</button></a>
                         <a href={class_diagram} target="_blank"><button class="bg-indigo-700 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded ml-2 mr-2">Class Diagram</button></a>
                         <a href={sequence_diagram_1} target="_blank"><button class="bg-indigo-700 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded ml-2 mr-2">Sequence Diagram 1</button></a>
                         <a href={sequence_diagram_2} target="_blank"><button class="bg-indigo-700 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded ml-2 mr-2">Sequence Diagram 2</button></a>
-                        <button onClick={() => alert("This button is currently a placeholder, as this assignment has not been completed yet.")} class="bg-indigo-700 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded ml-2 mr-2">Domain Search Bibliography</button>
                     </div>
                 </div>
             </div>
