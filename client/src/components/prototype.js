@@ -55,7 +55,7 @@ export default function Prototype() {
 //           url = 'http://localhost:8080';
 //       }
 
-      const response = await fetch("https://swelms.herokuapp.com/api", options);
+      const response = await fetch("http://localhost:8080/api", options);
       const body = await response.json();
       var uniqueNotifications = body.message;
 
@@ -80,7 +80,7 @@ export default function Prototype() {
         body: JSON.stringify(dataSlug),
       };
 
-      const response = await fetch("https://swelms.herokuapp.com/api", options);
+      const response = await fetch("http://localhost:8080/api", options);
       const body = await response.json();
       var uniqueNotifications = body.message;
 
